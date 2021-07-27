@@ -20,6 +20,14 @@ export const routes = [
         path: '/detail',
         component: '@/pages/Detail',
       },
+      {
+        path: '/pf520',
+        component: '@/pages/PF',
+      },
+      {
+        path: '/login',
+        component: '@/pages/Login',
+      },
     ]
   },
 ]

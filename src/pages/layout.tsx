@@ -18,12 +18,17 @@ const LayoutPage = (props: Iprops) => {
 		return window.location.hash
 	});
 
+	if (window.location.href.indexOf('pf520') > -1) {
+		return props.children
+	}
+
+
 	return (
 		<Layout className="layout">
 			<Affix>
 				<div style={{ display: 'flex', backgroundColor: '#fff', height: 60, lineHeight: '60px' }}>
 					<div style={{ paddingLeft: 20 }} >
-						<img height="50px" src="/logo.png" alt="" />
+						<img height="50px" src="http://localhost:8001/logo.png" alt="" />
 					</div>
 					{
 						MENUS.map((item) => {

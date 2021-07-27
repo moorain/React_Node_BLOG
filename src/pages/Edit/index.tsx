@@ -1,18 +1,21 @@
 import { Upload, message, Button, Input, Form } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { request, useRequest } from 'umi'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { urlPipe, requestFunc } from '@/util';
 
 const Edit = () => {
+    useEffect(() => {
+        requestFunc('/morain/user')
+    }, []);
+
+
     const [delId, setDelId] = useState();
-
     const [form] = Form.useForm();
-
     const [param, $param] = useState<{ title: string, description: string }>({
         title: '',
         description: '',
     })
-
     const onValuesChange = (fleds: any) => {
         $param((param) => {
             return {
@@ -28,7 +31,7 @@ const Edit = () => {
             description: param.description,
         },
         name: 'file',
-        action: '/uploadfile',
+        action: urlPipe('/morain/uploadfile'),
         headers: {
             authorization: 'authorization-text',
         },
@@ -53,7 +56,7 @@ const Edit = () => {
         if (!delId) {
             message.error('id不能为空！')
         };
-        const res = await request(`/delete?id=${delId}`);
+        const res = await request(urlPipe(`/morain/delete?id=${delId}`));
         if (res?.success) {
             message.success(res.msg)
         }

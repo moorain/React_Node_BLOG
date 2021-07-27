@@ -2,10 +2,11 @@
 import React from 'react'
 import { useRequest, history } from 'umi'
 import { List, Space, Spin } from 'antd';
-// import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
+import { urlPipe } from '../../util';
+
 const ListPage = () => {
-    const { data } = useRequest(`/articleLists`);
-    console.log(data, 'listData')
+    const { data } = useRequest(urlPipe(`/articleLists`));
+
 
     // const IconText = ({ icon, text }) => (
     //     <Space>
