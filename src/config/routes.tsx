@@ -28,6 +28,10 @@ export const routes = [
         path: '/login',
         component: '@/pages/Login',
       },
+      {
+        path: '/onlineEdit',
+        component: '@/pages/Edit/onlineEdit',
+      },
     ]
   },
 ]
