@@ -9,6 +9,7 @@ const Demo = (props: any) => {
       data: values
     }).then(res => {
       if (res?.isSuccess) {
+        message.success('登录成功！')
         window.history.back()
       }
     })
@@ -19,7 +20,7 @@ const Demo = (props: any) => {
   };
 
   return (
-    <div>
+    <div style={{ padding: '100px 0', width: 400, margin: '0 auto' }}>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -29,34 +30,36 @@ const Demo = (props: any) => {
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
-          label="Username"
+          label="用户名"
           name="username"
-          rules={[{ required: true, message: 'Please input your username!' }]}
+          rules={[{
+            required: true, message: '用户名不能为空!'
+          }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Password"
+          label="密码"
           name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
+          rules={[{ required: true, message: '密码不能为空！' }]}
         >
           <Input.Password />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Submit
+            登录
           </Button>
         </Form.Item>
       </Form>
 
-      <Button
+      {/* <Button
         onClick={() => {
           requestFunc('/morain/user').then(res => {
             message.success(res?.msg)
           })
-        }}>验证token</Button>
+        }}>验证token</Button> */}
     </div>
   );
 }
