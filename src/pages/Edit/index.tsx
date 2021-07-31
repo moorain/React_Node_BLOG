@@ -1,4 +1,4 @@
-import { Upload, message, Button, Input, Form, Table } from 'antd';
+import { Upload, message, Button, Input, Form, Table, Modal } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { request, history } from 'umi'
 import { useState, useEffect } from 'react';
@@ -6,6 +6,9 @@ import { urlPipe, requestFunc } from '@/util';
 
 const Edit = () => {
     const [list, setList] = useState([])
+    const [mdUploadShow, setmdUploadShow] = useState(false);
+    const [filelist, setfileList] = useState<any>()
+
     const query = () => {
         requestFunc(`/articleLists`).then(res => {
             setList(res?.data)
@@ -48,6 +51,7 @@ const Edit = () => {
                 console.log(info.file, info.fileList);
             }
             if (info.file.status === 'done') {
+                query()
                 message.success(`${info.file.name} file uploaded successfully`);
             } else if (info.file.status === 'error') {
                 message.error(`${info.file.name} file upload failed.`);
@@ -60,8 +64,9 @@ const Edit = () => {
             message.error('id不能为空！')
         };
         const res = await request(urlPipe(`/morain/delete?id=${id}`));
-        if (res?.success) {
-            message.success(res.msg)
+        if (res?.isSuccess) {
+            message.success(res.msg);
+            query()
         }
     }
 
@@ -101,23 +106,32 @@ const Edit = () => {
 
     return (
         <div style={{ margin: 20 }}>
-            <div style={{ margin: '20px 0px' }}><Button onClick={gotoOnlineEdit}>在线编辑</Button></div>
-            <Table columns={columns} dataSource={list} />
-            <div style={{ width: '50%', border: '1px solid #d9d9d9', padding: 20 }}>
-                <div style={{ padding: '20px 0px' }}>makedown文件上传:</div>
-                <Form onValuesChange={onValuesChange}>
-                    <Form.Item name='title' label='标题'>
-                        <Input />
-                    </Form.Item>
-                    <Form.Item name='description' label='描述'>
-                        <Input />
-                    </Form.Item>
-                </Form>
-                <Upload {...props}>
-                    <Button icon={<UploadOutlined />}>上传</Button>
-                </Upload>
+            <div style={{ margin: '20px 0px' }}>
+                <Button onClick={gotoOnlineEdit}>在线编辑</Button>
+                <Button style={{ marginLeft: 10 }} onClick={() => {
+                    setmdUploadShow(true)
+                }}>md文件上传</Button>
             </div>
 
+            <Table columns={columns} dataSource={list} />
+
+            <Modal visible={mdUploadShow} footer={[]} onCancel={() => { setmdUploadShow(false) }}>
+                <div style={{ padding: 20 }}>
+                    <Form onValuesChange={onValuesChange}>
+                        <Form.Item name='title' label='标题'>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name='description' label='描述'>
+                            <Input />
+                        </Form.Item>
+                    </Form>
+                    <div style={{ textAlign: 'center' }}>
+                        <Upload  {...props}>
+                            <Button icon={<UploadOutlined />}>上传文件并保存数据</Button>
+                        </Upload>
+                    </div>
+                </div>
+            </Modal>
         </div>
     )
 }

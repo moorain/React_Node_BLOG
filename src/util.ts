@@ -1,17 +1,18 @@
 import { request, history } from "umi";
 import { message } from 'antd'
 interface IOptions {
-
+  data?: any,
+  method?: 'post' | 'get' | 'GET' | 'POST'
 }
 
-export const urlPipe = (url) => {
+export const urlPipe = (url: string) => {
   // return `${url}`
   return `/api${url}`
 }
 
 export const requestFunc = (url: string, options?: IOptions) => {
   return new Promise((resolve, reject) => {
-    request(urlPipe(url), options).then((res) => {
+    request(urlPipe(url), options).then((res: { data?: any, isSuccess: boolean, code?: any }) => {
       if (res?.isSuccess) {
         resolve(res)
       } else {
