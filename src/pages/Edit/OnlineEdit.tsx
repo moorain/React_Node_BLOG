@@ -9,6 +9,8 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 
 import { requestFunc } from '@/util';
+import MediaModal from './MediaModal';
+
 
 const mdParser = new MarkdownIt({
   highlight: function (str: string, lang: string) {
@@ -49,7 +51,7 @@ export default function App() {
 
 function OnlineEdit() {
   const [value, setValue] = useState(mkdStr);
-
+  const [visible, setVisible] = useState(false)
   function handleEditorChange({ html, text }) {
     setValue(text);
   }
@@ -60,6 +62,7 @@ function OnlineEdit() {
         <Button onClick={() => {
           history.push('./edit')
         }}>返回列表</Button>
+        <Button style={{ marginLeft: 10 }} onClick={() => { setVisible(true) }}>媒体库</Button>
         <div style={{ float: 'right' }}>
           <Button type='default' style={{ marginRight: 10 }} onClick={() => {
             console.log(value, 'value')
@@ -73,6 +76,10 @@ function OnlineEdit() {
             requestFunc('/morain/addOnlineEditArticle', { data: param, method: 'POST' })
           }}>保存</Button>
         </div>
+
+      </div>
+      <div>
+        <MediaModal visible={visible} visibleChange={(flag) => { setVisible(flag) }} />
       </div>
 
       <MdEditor
