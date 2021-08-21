@@ -1,6 +1,6 @@
 // import MDEditor from "@uiw/react-md-editor";
 import { useState } from 'react';
-import { Button } from 'antd';
+import { Button, Input, Row, Col, message } from 'antd';
 import { request, history } from 'umi'
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
@@ -51,7 +51,10 @@ export default function App() {
 
 function OnlineEdit() {
   const [value, setValue] = useState(mkdStr);
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
+  const [title, setTitle] = useState('');
+  const [des, setDes] = useState('');
+
   function handleEditorChange({ html, text }) {
     setValue(text);
   }
@@ -69,11 +72,16 @@ function OnlineEdit() {
           }}>重置</Button>
           <Button type='primary' onClick={() => {
             const param = {
-              title: 'test',
-              description: 'test',
+              title,
+              description: des,
               content: value,
             }
-            requestFunc('/morain/addOnlineEditArticle', { data: param, method: 'POST' })
+            requestFunc('/morain/addOnlineEditArticle', { data: param, method: 'POST' }).then(res => {
+              if (res?.isSuccess) {
+                message.success(res?.msg);
+                history.push('./index')
+              }
+            })
           }}>保存</Button>
         </div>
 
@@ -81,13 +89,18 @@ function OnlineEdit() {
       <div>
         <MediaModal visible={visible} visibleChange={(flag) => { setVisible(flag) }} />
       </div>
-
+      <div style={{ padding: '0px 0px 20px 0px' }}>
+        <Row >
+          <Col span={4}>标题：<Input value={title} onChange={(e) => { setTitle(e.target.value) }} /></Col>
+          <Col offset={1} span={8}>描述:<Input value={des} onChange={(e) => { setDes(e.target.value) }} /></Col>
+        </Row>
+      </div>
       <MdEditor
         value={value}
         style={{ height: '600px' }}
         renderHTML={text => mdParser.render(text)}
         onChange={handleEditorChange} />
-    </div>
+    </div >
   );
 }
 
