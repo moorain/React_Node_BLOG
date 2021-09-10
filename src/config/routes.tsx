@@ -32,6 +32,18 @@ export const routes = [
         path: '/onlineEdit',
         component: '@/pages/Edit/onlineEdit',
       },
+      {
+        path: '/mdiaManage',
+        component: '@/pages/Edit/MediaManage',
+      },
+      {
+        path: '/demo',
+        component: '@/pages/Demos',
+      },
+      {
+        path: '/single',
+        component: '@/pages/Demos/Item/index',
+      },
     ]
   },
 ]

@@ -13,6 +13,7 @@ export const urlPipe = (url: string) => {
 export const requestFunc = (url: string, options?: IOptions) => {
   return new Promise((resolve, reject) => {
     request(urlPipe(url), options).then((res: { data?: any, isSuccess: boolean, code?: any }) => {
+      console.log(res, 'res')
       if (res?.isSuccess) {
         resolve(res)
       } else {
@@ -25,4 +26,22 @@ export const requestFunc = (url: string, options?: IOptions) => {
     })
   })
 
+}
+
+export function getQueryVariable(variable: string) {
+  let res = null;
+  try {
+    const query = window.location.href.split('?')[1]
+    const querys = query.split('&');
+    querys.forEach((str) => {
+      const param = str.split('=');
+      if (param?.[0] === variable) {
+        res = param?.[1]
+      }
+    })
+  } catch (err) {
+    res = null;
+  }
+
+  return res;
 }

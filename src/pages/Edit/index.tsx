@@ -92,9 +92,11 @@ const Edit = () => {
             key: 'action',
             render: (a, record) => {
                 return (
-                    <Button type='link' onClick={() => {
-                        del(record.id)
-                    }}>删除</Button>
+                    <Button
+                        type='link'
+                        onClick={() => {
+                            del(record.id)
+                        }}>删除</Button>
                 )
             }
         },
@@ -104,6 +106,10 @@ const Edit = () => {
         history.push('./onlineEdit')
     }
 
+    const gotoMediaManage = () => {
+        history.push('./mdiaManage')
+    }
+
     return (
         <div style={{ margin: 20 }}>
             <div style={{ margin: '20px 0px' }}>
@@ -111,6 +117,7 @@ const Edit = () => {
                 <Button style={{ marginLeft: 10 }} onClick={() => {
                     setmdUploadShow(true)
                 }}>md文件上传</Button>
+                <Button style={{ marginLeft: 10 }} onClick={gotoMediaManage}>媒体管理</Button>
             </div>
 
             <Table columns={columns} dataSource={list} />
