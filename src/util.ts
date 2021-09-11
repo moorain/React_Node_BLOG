@@ -6,8 +6,10 @@ interface IOptions {
 }
 
 export const urlPipe = (url: string) => {
-  // return `${url}`
-  return `/api${url}`
+  if (window.location.href.indexOf('localhost') > -1) {
+    return `/api${url}`
+  }
+  return `/${url}`
 }
 
 export const requestFunc = (url: string, options?: IOptions) => {
