@@ -9,7 +9,7 @@ export const urlPipe = (url: string) => {
   if (window.location.href.indexOf('localhost') > -1) {
     return `/api${url}`
   }
-  return `/${url}`
+  return `${url}`
 }
 
 export const requestFunc = (url: string, options?: IOptions) => {
