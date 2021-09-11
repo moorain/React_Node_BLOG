@@ -37,8 +37,8 @@ export const routes = [
         component: '@/pages/Edit/MediaManage',
       },
       {
-        path: '/demo',
-        component: '@/pages/Demos',
+        path: '/demos',
+        component: '@/pages/Demos/index',
       },
       {
         path: '/single',

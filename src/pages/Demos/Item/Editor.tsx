@@ -34,9 +34,9 @@ export default (props) => {
         height="80vh"
         theme="vs-light"
         onChange={onChange}
-        path={file.name}
-        defaultLanguage={file.language}
-        defaultValue={file.value}
+        path={file?.name}
+        defaultLanguage={file?.language}
+        defaultValue={file?.value}
         beforeMount={handleEditorWillMount}
         onMount={handleEditorDidMount}
       />

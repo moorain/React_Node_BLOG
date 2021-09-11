@@ -6,8 +6,9 @@ import { getQueryVariable, requestFunc } from '@/util';
 
 export default () => {
   const [urlObj, setUrl] = useState({
-    url: `http://localhost:8001/editor_${getQueryVariable('key')}.html`
+    url: ``
   });
+
   return (
     <div style={{ padding: 20, display: 'flex', justifyContent: 'space-around', background: '#fff' }}>
       <div style={{ width: '45%', border: '1px solid #d9d9d9', padding: 10 }}>

@@ -6,8 +6,8 @@ export const cdnOptions = [
 export const CDN_ENUM_OBJ = {
   react: {
     scripts: [
-      "https://unpkg.com/react@17/umd/react.development.js",
-      "https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js",
+      "https://cdn.bootcdn.net/ajax/libs/react/16.13.1/umd/react.production.min.js",
+      "https://cdn.staticfile.org/react-dom/17/umd/react-dom.development.js",
       "https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"
     ],
     code: ''
