@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Radio, Button, Popover, Checkbox } from 'antd';
+import { Radio, Button, Popover, Checkbox, Input, message } from 'antd';
 import { getQueryVariable, requestFunc, getDate } from '@/util';
-import { cdnOptions, CDN_ENUM_OBJ } from './constant'
+import { cdnOptions, CDN_ENUM_OBJ, getHtml } from './constant'
 import EditorCom from './Editor';
 
 const filesInit: any = {
@@ -29,8 +29,9 @@ let isChange = false;
 export default function App(props) {
   const key = getQueryVariable('key');
   const [fileName, setFileName] = useState("script.js");
-  const [cdn, setCdn] = useState([]);
+  // const [cdn, setCdn] = useState([]);
   const [file, setFile] = useState();
+  const [title, setTitle] = useState();
 
   const fileRef = useRef(filesInit)
 
@@ -42,13 +43,13 @@ export default function App(props) {
         const files = res?.data?.filesJson ? JSON.parse(res?.data?.filesJson) : filesInit;
         fileRef.current = files;
         setFile(files[fileName])
+        setTitle(res?.data?.title || '')
         codeChange(fileRef.current);
       })
     } else {
       setFile(filesInit[fileName])
     }
   }, [key])
-
 
   const handleModeChange = (e: any) => {
     setFileName(e.target.value)
@@ -65,19 +66,21 @@ export default function App(props) {
     if (!curFiles?.key) {
       curFiles.key = new Date().valueOf();
     }
-    requestFunc('/codeChange', {
-      method: 'post',
-      data: curFiles,
-    }).then(res => {
-      isChange = false;
-      if (res?.isSuccess) {
-        window.history.replaceState({}, '', `/#/single?key=${curFiles.key}`)
-        props.setUrl({
-          url: res?.data?.url,
-          key: new Date().valueOf(),
-        })
-      }
-    })
+    const htmlStr = getHtml(curFiles);
+    props.setDoc(htmlStr || '')
+    // requestFunc('/codeChange', {
+    //   method: 'post',
+    //   data: curFiles,
+    // }).then(res => {
+    //   isChange = false;
+    //   if (res?.isSuccess) {
+    //     window.history.replaceState({}, '', `/#/single?key=${curFiles.key}`)
+    //     props.setUrl({
+    //       url: res?.data?.url,
+    //       key: new Date().valueOf(),
+    //     })
+    //   }
+    // })
   }
 
   // const onCheckboxChange = (vals: any) => {
@@ -113,35 +116,42 @@ export default function App(props) {
 
   const save = () => {
     const filsJSON = JSON.stringify(fileRef.current);
-
     const params = {
       id: fileRef.current.key || new Date().valueOf(),
       userId: 123,
       userName: 'admin',
       filesJson: filsJSON,
       createDate: getDate(new Date()),
+      title,
     }
 
     requestFunc('/codeSave', {
       method: 'post',
       data: params,
     }).then(res => {
-      // console.log(res, 'res')
+      message.success('操作成功！')
     })
+  }
+
+  const strChange = (e) => {
+    setTitle(e.target.value)
   }
 
   return (
     <div>
       <>
+        <div style={{ padding: '10px 0' }}><Input placeholder='请输入标题' value={title} onChange={strChange} /></div>
         <div style={{ paddingBottom: 10 }}>
           <Radio.Group size='small' onChange={handleModeChange} value={fileName} style={{ marginBottom: 8 }}>
             <Radio.Button value="script.js">javascript</Radio.Button>
             <Radio.Button value="style.css">CSS</Radio.Button>
             <Radio.Button value="index.html">HTML</Radio.Button>
           </Radio.Group>
+
           {/* <Popover content={content} title="CDN" trigger="click">
             <Button size='small' style={{ marginLeft: 20 }}>CDN</Button>
           </Popover> */}
+
           <div style={{ float: 'right' }}>
             <Button size='small' onClick={save} style={{ margin: '0 20px' }}>保存</Button>
             <Button size='small' onClick={() => { codeChange(fileRef.current) }} type='primary'>运行</Button>

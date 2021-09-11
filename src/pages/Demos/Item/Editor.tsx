@@ -9,7 +9,6 @@ export default (props) => {
     // here is the monaco instance
     // do something before editor is mounted
     // monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
-
   }
 
   function handleEditorDidMount(editor, monaco) {
@@ -36,7 +35,7 @@ export default (props) => {
         onChange={onChange}
         path={file?.name}
         defaultLanguage={file?.language}
-        defaultValue={file?.value}
+        value={file?.value}
         beforeMount={handleEditorWillMount}
         onMount={handleEditorDidMount}
       />

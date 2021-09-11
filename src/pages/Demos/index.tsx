@@ -17,8 +17,8 @@ const Edit = () => {
     // requestFunc('/morain/user');
     query()
   }, []);
-  console.log(list, list)
-  if (!list) {
+
+  if (!(list)) {
     return (
       <Spin />
     )
@@ -29,7 +29,7 @@ const Edit = () => {
   }
 
   return (
-    <div style={{ margin: 20, background: '#fff', padding: 20, display: 'flex' }}>
+    <div style={{ margin: 20, background: '#fff', padding: 20, display: 'flex', flexWrap: 'wrap' }}>
       {(list || []).map((item) => {
         return (
           <div style={{ padding: 10 }}>
@@ -37,10 +37,10 @@ const Edit = () => {
               onClick={() => { goEditor(item.id) }}
               key={item}
               style={{ width: 250, border: '1px solid #d9d9d9', padding: 10, cursor: 'pointer' }}>
-              <h2>React/Antd/Moment</h2>
-              <div>{item.createDate}</div>
-              <div>{item.id}</div>
-              <div>{item.userName}</div>
+              <h2>{item?.title || ''}</h2>
+              <div>{item?.createDate || ""}</div>
+              <div>{item?.id || ''}</div>
+              <div>{item?.userName || ''}</div>
             </div>
           </div>
         )
