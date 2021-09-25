@@ -12,7 +12,7 @@ interface Iprops {
 }
 
 const LayoutPage = (props: Iprops) => {
-	const padding = '0 50px';
+	const padding = '0.5em';
 
 	const [path, $path] = useState(() => {
 		return window.location.hash
@@ -33,7 +33,7 @@ const LayoutPage = (props: Iprops) => {
 					{
 						MENUS.map((item) => {
 							return (
-								<div onClick={() => {
+								<div key={item.path} onClick={() => {
 									$path(item.path)
 									history.push(`./${item.path}`);
 								}}

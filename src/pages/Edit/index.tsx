@@ -109,14 +109,13 @@ const Edit = () => {
     const gotoMediaManage = () => {
         history.push('./mdiaManage')
     }
-
     return (
         <div style={{ margin: 20 }}>
             <div style={{ margin: '20px 0px' }}>
                 <Button onClick={gotoOnlineEdit}>在线编辑</Button>
-                <Button style={{ marginLeft: 10 }} onClick={() => {
+                {/* <Button style={{ marginLeft: 10 }} onClick={() => {
                     setmdUploadShow(true)
-                }}>md文件上传</Button>
+                }}>md文件上传</Button> */}
                 <Button style={{ marginLeft: 10 }} onClick={gotoMediaManage}>媒体管理</Button>
             </div>
 

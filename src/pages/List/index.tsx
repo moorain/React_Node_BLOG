@@ -1,19 +1,26 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRequest, history } from 'umi'
 import { List, Space, Spin } from 'antd';
-import { urlPipe } from '../../util';
-
+import { urlPipe, requestFunc } from '../../util';
+import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 const ListPage = () => {
-    const { data } = useRequest(urlPipe(`/articleLists`));
+    const [data, setData] = useState([])
+    const query = async () => {
+        const listData = await requestFunc(`/articleLists`);
+        setData(listData?.data || [])
+    }
+    useEffect(() => {
+        query()
+    }, [])
 
 
-    // const IconText = ({ icon, text }) => (
-    //     <Space>
-    //         {React.createElement(icon)}
-    //         {text}
-    //     </Space>
-    // );
+    const IconText = ({ icon, text }) => (
+        <Space>
+            {React.createElement(icon)}
+            {text}
+        </Space>
+    );
 
     const onClickListItem = (item) => {
         history.push(`/detail?id=${item.id}`)
@@ -25,7 +32,7 @@ const ListPage = () => {
 
     return (
         <List
-            style={{ backgroundColor: '#fff', marginTop: 20 }}
+            style={{ backgroundColor: '#fff' }}
             pagination={false}
             itemLayout="vertical"
             size="large"
@@ -44,11 +51,11 @@ const ListPage = () => {
             renderItem={item => (
                 <List.Item
                     key={item.id}
-                // actions={[
-                //     <IconText type="star-o" text="156" key="list-vertical-star-o" />,
-                //     <IconText type="like-o" text="156" key="list-vertical-like-o" />,
-                //     <IconText type="message" text="2" key="list-vertical-message" />,
-                // ]}
+                    actions={[
+                        <IconText icon={StarOutlined} text="0" key="list-vertical-star-o" />,
+                        <IconText icon={LikeOutlined} text="0" key="list-vertical-like-o" />,
+                        <IconText icon={MessageOutlined} text="0" key="list-vertical-message" />,
+                    ]}
                 // extra={
                 //     <img
                 //         width={272}

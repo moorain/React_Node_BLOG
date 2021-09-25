@@ -29,16 +29,16 @@ const Edit = () => {
   }
 
   return (
-    <div style={{ margin: 20, background: '#fff', padding: 20, display: 'flex', flexWrap: 'wrap' }}>
-      {(list || []).map((item) => {
+    <div style={{ background: '#fff', display: 'flex', flexWrap: 'wrap' }}>
+      {(list || []).map((item: any) => {
         return (
-          <div style={{ padding: 10 }}>
+          <div style={{ padding: '0.5em' }}>
             <div
               onClick={() => { goEditor(item.id) }}
               key={item}
-              style={{ width: 250, border: '1px solid #d9d9d9', padding: 10, cursor: 'pointer' }}>
+              style={{ border: '1px solid #d9d9d9', borderRadius: 10, padding: 10, cursor: 'pointer' }}>
               <h2>{item?.title || ''}</h2>
-              <div>{item?.createDate || ""}</div>
+              {/* <div>{item?.createDate || ""}</div> */}
               <div>{item?.id || ''}</div>
               <div>{item?.userName || ''}</div>
             </div>

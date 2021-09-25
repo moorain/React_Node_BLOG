@@ -17,6 +17,10 @@ export const routes = [
         component: '@/pages/List',
       },
       {
+        path: '/tools',
+        component: '@/pages/Tools',
+      },
+      {
         path: '/detail',
         component: '@/pages/Detail',
       },

@@ -1,5 +1,5 @@
 import { Form, Input, Button, Checkbox, message } from 'antd';
-import { requestFunc } from '@/util';
+import { requestFunc, setLocalStorage } from '@/util';
 import { withRouter } from 'react-router';
 
 const Demo = (props: any) => {
@@ -10,6 +10,7 @@ const Demo = (props: any) => {
     }).then(res => {
       if (res?.isSuccess) {
         message.success('登录成功！')
+        setLocalStorage('token', res.data, 1)
         window.history.back()
       }
     })
