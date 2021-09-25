@@ -28,7 +28,7 @@ const LayoutPage = (props: Iprops) => {
 			<Affix>
 				<div style={{ display: 'flex', backgroundColor: '#fff', height: 60, lineHeight: '60px' }}>
 					<div style={{ paddingLeft: 20 }} >
-						<img height="50px" src="http://localhost:8001/logo.png" alt="" />
+						<img height="50px" src="/public/logo.png" alt="" />
 					</div>
 					{
 						MENUS.map((item) => {
