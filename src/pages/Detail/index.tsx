@@ -13,8 +13,11 @@ const Detail = (props: Iprops) => {
   const { data } = useRequest(urlPipe(`/article?id=${props?.location?.query?.id}`));
   return (
     <div className={styles.detail} style={{ padding: '1em' }}>
-      <h1>标题标题</h1>
-      {data ? <Article data={data || ''} /> : <Spin />}
+      {data ? <Article data={data || ''} /> : (
+        <div style={{ padding: '200px 0', textAlign: 'center' }}>
+          <Spin />
+        </div>
+      )}
     </div>
   )
 }

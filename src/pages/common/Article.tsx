@@ -6,32 +6,21 @@
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
+// import 'highlight.js/styles/atom-one-light.css';
+// import 'highlight.js/styles/default.css';
 
 const mdParser = new MarkdownIt({
   highlight: function (str: string, lang: string) {
-    console.log(str, lang)
-    if (lang && hljs.getLanguage(lang)) {
+    const langStr = lang || 'javascript'
+    if (langStr && hljs.getLanguage(langStr)) {
       try {
-        return hljs.highlight(str, { language: lang }).value;
+        return hljs.highlight(str, { language: langStr }).value;
       } catch (__) { }
     }
 
-    return ''; // use external default escaping
+    return '';
   }
 });
-
-// const components = {
-//   code({ node, inline, className, children, ...props }: any) {
-//     const match = /language-(\w+)/.exec(className || '')
-//     return !inline && match ? (
-//       <SyntaxHighlighter style={light} language={match[1]} PreTag="div" children={String(children).replace(/\n$/, '')} {...props} />
-//     ) : (
-//       <code className={className} {...props}>
-//         {children}
-//       </code>
-//     )
-//   }
-// }
 
 interface Iprops {
   data: string,
@@ -41,7 +30,6 @@ export default function IndexPage(props: Iprops) {
   return (
     <div>
       <div dangerouslySetInnerHTML={{ __html: mdParser.render(props?.data) }}></div>
-      {/* <ReactMarkdown components={components} skipHtml={false} rehypePlugins={[rehypeRaw]} children={props?.data || ''} /> */}
     </div>
   );
 }

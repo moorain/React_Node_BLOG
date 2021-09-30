@@ -6,7 +6,7 @@ export default defineConfig({
   // dynamicImport: {},
   publicPath: process.env.NODE_ENV === 'production' ? '/public/' : '/',
   history: {
-    type: 'browser'
+    type: 'hash'
   },
   nodeModulesTransform: {
     type: 'none',
