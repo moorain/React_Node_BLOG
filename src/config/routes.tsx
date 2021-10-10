@@ -25,10 +25,6 @@ export const routes = [
         component: '@/pages/Detail',
       },
       {
-        path: '/pf520',
-        component: '@/pages/PF',
-      },
-      {
         path: '/login',
         component: '@/pages/Login',
       },
@@ -47,6 +43,21 @@ export const routes = [
       {
         path: '/single',
         component: '@/pages/Demos/Item/index',
+      },
+      {
+        path: '/pf520',
+        component: '@/pages/PF',
+        // redirect: '/pf520/weight',
+        routes: [
+          {
+            path: 'weight',
+            component: '@/pages/PF/pages/weight',
+          },
+          {
+            path: 'user',
+            component: '@/pages/PF/pages/Home',
+          },
+        ]
       },
     ]
   },

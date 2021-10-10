@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@ant-design/pro-layout": "^6.5.0",
+    "@antv/g2": "^4.1.30",
     "@monaco-editor/react": "^4.2.2",
     "@uiw/react-md-editor": "^3.4.11",
     "highlight.js": "^11.1.0",
