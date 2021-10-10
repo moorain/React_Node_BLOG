@@ -24,6 +24,8 @@
     "@antv/g2": "^4.1.30",
     "@monaco-editor/react": "^4.2.2",
     "@uiw/react-md-editor": "^3.4.11",
+    "antd-mobile": "^2.3.4",
+    "bignumber.js": "^9.0.1",
     "highlight.js": "^11.1.0",
     "markdown-it": "^12.1.0",
     "react": "17.x",
