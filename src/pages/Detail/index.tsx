@@ -12,7 +12,7 @@ interface Iprops {
 const Detail = (props: Iprops) => {
   const { data } = useRequest(urlPipe(`/article?id=${props?.location?.query?.id}`));
   return (
-    <div className={styles.detail} style={{ padding: '1em' }}>
+    <div className={styles.detail} style={{ padding: '1em', width: '100%', overflow: 'hidden' }}>
       {data ? <Article data={data || ''} /> : (
         <div style={{ padding: '200px 0', textAlign: 'center' }}>
           <Spin />
