@@ -2,6 +2,7 @@ import { defineConfig } from 'umi';
 import { routes } from './src/config/routes';
 
 export default defineConfig({
+  hash: true,
   // ssr: {},
   // dynamicImport: {},
   publicPath: process.env.NODE_ENV === 'production' ? '/public/' : '/',
