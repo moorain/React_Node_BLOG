@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Chart } from '@antv/g2';
 import { FrownOutlined, FireOutlined, BellOutlined, CarryOutOutlined, SmileOutlined } from '@ant-design/icons';
-import { Modal, Toast } from 'antd-mobile';
+import { Modal, Toast, Progress } from 'antd-mobile';
 import moment from 'moment';
 import { requestFunc } from '@/util';
 import BigNumber from 'bignumber.js'
 import styles from './index.less';
 
 const prompt = Modal.prompt;
-
 const renderChart = (data: any) => {
   const dom = document.getElementById('container')
   if (dom) {
@@ -75,13 +74,13 @@ const PfHeight = () => {
     if (res?.data) {
       renderChart(res?.data?.lastDays || []);
       const { firstDay, allCount, curDay, lastDay } = res.data;
-      const curDayNum = new BigNumber(curDay.weight);
-      const lastDayNum = new BigNumber(lastDay.weight);
-      const firstDayNum = new BigNumber(firstDay.weight);
+      const curDayNum = new BigNumber(curDay?.weight || 0);
+      const lastDayNum = new BigNumber(lastDay?.weight || 0);
+      const firstDayNum = new BigNumber(firstDay?.weight || 0);
 
       const change = curDayNum.minus(lastDayNum).toNumber();
       const allChange = firstDayNum.minus(curDayNum).toNumber();
-      const isAdd = moment(curDay.date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD');
+      const isAdd = moment(curDay?.date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD');
 
       const info = {
         firstWeight: firstDay?.weight || 0,
@@ -203,6 +202,9 @@ const PfHeight = () => {
       <div className={styles.title}>
         最近
       </div>
+      <div className={styles.tip} style={{ padding: '1em' }}>
+        <Progress barStyle={{ backgroundColor: '#7948ea' }} percent={((info?.allCount || 0) * 100) / 20} position="normal" />
+      </div>
       <div className={styles.tipBox} >
         {
           tips.map((item) => {
@@ -224,6 +226,7 @@ const PfHeight = () => {
           })
         }
       </div>
+
     </div >
   )
 }

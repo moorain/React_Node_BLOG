@@ -48,6 +48,7 @@ function getCookie(filed: string) {
   }
   return "";
 }
+
 export const urlPipe = (url: string) => {
   let currentUrl = url;
   const csrfToken = getCookie('csrfToken')

@@ -1,4 +1,4 @@
-import { Upload, message, Button, Input, Form, Table, Modal } from 'antd';
+import { Upload, message, Button, Input, Form, Table, Modal, Space } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { request, history } from 'umi'
 import { useState, useEffect } from 'react';
@@ -109,15 +109,21 @@ const Edit = () => {
     const gotoMediaManage = () => {
         history.push('./mdiaManage')
     }
+
+    const gotoOnlineEdit1 = () => {
+        history.push('./interview')
+    }
+
     return (
         <div style={{ margin: 20 }}>
-            <div style={{ margin: '20px 0px' }}>
+            <Space style={{ margin: '20px 0px' }}>
                 <Button onClick={gotoOnlineEdit}>在线编辑</Button>
+                <Button onClick={gotoOnlineEdit1}>InterView</Button>
                 {/* <Button style={{ marginLeft: 10 }} onClick={() => {
                     setmdUploadShow(true)
                 }}>md文件上传</Button> */}
-                <Button style={{ marginLeft: 10 }} onClick={gotoMediaManage}>媒体管理</Button>
-            </div>
+                <Button onClick={gotoMediaManage}>媒体管理</Button>
+            </Space>
 
             <Table columns={columns} dataSource={list} />
 

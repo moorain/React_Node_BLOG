@@ -33,6 +33,14 @@ export const routes = [
         component: '@/pages/Edit/onlineEdit',
       },
       {
+        path: '/interview',
+        component: '@/pages/Edit/interview/list',
+      },
+      {
+        path: '/interviewadd',
+        component: '@/pages/Edit/interview/index',
+      },
+      {
         path: '/mdiaManage',
         component: '@/pages/Edit/MediaManage',
       },
